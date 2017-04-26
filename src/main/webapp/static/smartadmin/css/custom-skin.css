@@ -1,0 +1,112 @@
+@import "../less/custom-style.less";
+/***********PUBLIC CLASS**************/
+
+#logo #logo-img.minify-logo-img{
+    max-width: 40px;
+    margin-top: -8px;
+    left: -9px;
+    position: relative;
+    top: 5px;
+}
+
+
+/********************************************************************* LOGO STYLE *************************************************************/
+
+#logo-group.custom-logo-style-1 {
+    /*background: @custom-color;*/
+}
+
+#logo-group.custom-logo-style-2 {
+    background: none repeat scroll 0 0 #25ad9f;
+}
+
+#logo-group.custom-logo-style-3 {
+    background: none repeat scroll 0 0 #22262e;
+}
+
+/********************************************************************* HEADER STYLE *************************************************************/
+
+#header.custom-header-style-1 {
+    background: none repeat scroll 0 0 #464543;
+}
+
+#header.custom-header-style-2 {
+    background: none repeat scroll 0 0 #25ad9f;
+}
+
+#header.custom-header-style-3 {
+    background: none repeat scroll 0 0 #22262e;
+}
+
+/********************************************************************* LEFT NAVIGATION STYLE *************************************************************/
+
+#left-panel.custom-left-panel-style-1 {
+    background: none repeat scroll 0 0 #464543;
+}
+
+#left-panel.custom-left-panel-style-2 {
+    background: none repeat scroll 0 0 #25ad9f;
+}
+/********** style3 start **********/
+#left-panel.custom-left-panel-style-3 {
+    background: none repeat scroll 0 0 #1b1e24;
+}
+
+#left-panel.custom-left-panel-style-3 .login-info {
+    background: none repeat scroll 0 0 #1b1e24;
+    border-bottom: 1px solid #1b1e24;
+    box-shadow: none;
+}
+
+#left-panel.custom-left-panel-style-3 nav ul li a {
+    padding: 12px 17px 12px 16px;
+}
+#left-panel.custom-left-panel-style-3 nav ul li a,
+#left-panel.custom-left-panel-style-3 nav > ul > li > a > i,
+#left-panel.custom-left-panel-style-3 .login-info strong,
+#left-panel.custom-left-panel-style-3 .login-info a {
+    color: #8b91a0;
+}
+
+#left-panel.custom-left-panel-style-3 nav ul li.active > a {
+    font-weight: bold;
+    color: #fff;
+}
+#left-panel.custom-left-panel-style-3 nav ul ul li > a {
+    color: #e1eaf1;
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    padding-bottom: 6px !important;
+    padding-left: 43px;
+    padding-top: 6px !important;
+    text-shadow: 0 1px 1px #000;
+}
+#left-panel.custom-left-panel-style-3 nav > ul > li.open {
+    border-left: 0;
+}
+
+
+#left-panel.custom-left-panel-style-3 nav > ul > li {
+    background-color: #1b1e24;
+    background-image:none;
+    border-bottom: 1px solid #1b1e24;
+}
+
+#left-panel.custom-left-panel-style-3 a {
+    transition: color 0.1s linear 0s, background-color 0.1s linear 0s !important;
+}
+
+#left-panel.custom-left-panel-style-3 nav > ul > li > a > i {
+    font-size: 17px;
+    vertical-align: 0;
+}
+
+#left-panel.custom-left-panel-style-3 nav > ul > li > a > i:after {
+    border: 1px solid #fff;
+}
+#left-panel.custom-left-panel-style-3 nav > ul > li > a b {
+    right: 17px;
+    top: 12px;
+}
+/********** style3 end **********/

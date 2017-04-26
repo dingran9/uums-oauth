@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://cxf.apache.org/jaxrs
+    http://cxf.apache.org/schemas/jaxrs.xsd">
+	<!--<bean id="MyInterceptor" class="com.eeduspace.uuims.oauth.ws.MyInterceptor" ></bean>-->
+<!-- 	<bean id="MyOutInterceptor" class="com.eeduspace.uuims.oauth.ws.MyInterceptor" ></bean>
+ -->	<bean id="validateWs" class="com.eeduspace.uuims.oauth.ws.ValidateWs" />
+	<bean id="userWs" class="com.eeduspace.uuims.oauth.ws.UserWs" />
+	<bean id="managerWs" class="com.eeduspace.uuims.oauth.ws.ManagerWs" />
+	<bean id="accessWs" class="com.eeduspace.uuims.oauth.ws.AccessWs" />
+	<bean id="loginWs" class="com.eeduspace.uuims.oauth.ws.LoginWs" />
+	<bean id="thirdWs" class="com.eeduspace.uuims.oauth.ws.AuthorizeWs" />
+	<bean id="roleWs" class="com.eeduspace.uuims.oauth.ws.RoleWs" />
+	<bean id="productWs" class="com.eeduspace.uuims.oauth.ws.ProductWs" />
+	<bean id="enterpriseWs" class="com.eeduspace.uuims.oauth.ws.EnterpriseWs" />
+	<bean id="tokenWs" class="com.eeduspace.uuims.oauth.ws.TokenWs" />
+	<bean id="bandWs" class="com.eeduspace.uuims.oauth.ws.BandWs" />
+	<bean id="authorizeWs" class="com.eeduspace.uuims.oauth.ws.AuthorizeWs" />
+	<bean id="redisWs" class="com.eeduspace.uuims.oauth.ws.RedisWs" />
+	<bean id="batchWs" class="com.eeduspace.uuims.oauth.ws.BatchWs" />
+	<bean id="sinaWs" class="com.eeduspace.uuims.oauth.ws.SinaWs" />
+	<bean id="tencentWs" class="com.eeduspace.uuims.oauth.ws.TencentWs" />
+	<bean id="weChatWs" class="com.eeduspace.uuims.oauth.ws.WeChatWs" />
+	<bean id="logWs" class="com.eeduspace.uuims.oauth.ws.LogWs" />
+	<bean id="messageWs" class="com.eeduspace.uuims.oauth.ws.MessageWs" />
+	<bean id="testWs" class="com.eeduspace.uuims.oauth.ws.TestWs" />
+	<bean id="userUsageCountWs" class="com.eeduspace.uuims.oauth.ws.UserUsageCountWs" />
+	<bean id="onlineWs" class="com.eeduspace.uuims.oauth.ws.OnlineWs" />
+	<bean id="remoteAddressWs" class="com.eeduspace.uuims.oauth.ws.RemoteAddressWs" />
+	<bean id="smsWs" class="com.eeduspace.uuims.oauth.ws.SmsWs" />
+	<!-- 这里的地址很重要，客户端需要通过这个地址来访问WebService -->
+	<jaxrs:server id="spring-app-cloud-auth" address="/oauth">
+		<jaxrs:serviceBeans>
+			<ref bean="userUsageCountWs"/>
+			<ref bean="validateWs" />
+			<ref bean="userWs" />
+			<ref bean="managerWs" />
+			<ref bean="accessWs" />
+			<ref bean="loginWs" />
+			<ref bean="thirdWs" />
+			<ref bean="roleWs" />
+			<ref bean="productWs" />
+			<ref bean="enterpriseWs" />
+			<ref bean="tokenWs" />
+			<ref bean="bandWs" />
+			<ref bean="authorizeWs" />
+			<ref bean="batchWs" />
+			<ref bean="sinaWs" />
+			<ref bean="tencentWs" />
+			<ref bean="weChatWs" />
+			<ref bean="logWs" />
+			<ref bean="messageWs" />
+			<ref bean="testWs" />
+			<ref bean="onlineWs" />
+			<ref bean="remoteAddressWs" />
+			<ref bean="smsWs" />
+			<!--<ref bean="MyInterceptor" />-->
+			<!-- <ref bean="MyOutInterceptor" /> -->
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jaxbProvider" />
+			<ref bean="jsonProvider" />
+			<bean
+				class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter" />
+		</jaxrs:providers>
+		<jaxrs:extensionMappings>
+		</jaxrs:extensionMappings>
+		<jaxrs:languageMappings>
+			<entry key="cn" value="ch-CN" />
+		</jaxrs:languageMappings>
+	<!--	<jaxrs:inInterceptors>
+			<ref bean="MyInterceptor"/>
+		</jaxrs:inInterceptors>-->
+		<!-- cxf 拦截器  out -->
+		<!-- <jaxrs:outInterceptors>
+			<ref bean="MyOutInterceptor"/>
+		</jaxrs:outInterceptors> -->
+	</jaxrs:server>
+</beans>

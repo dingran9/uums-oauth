@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task  
+       http://www.springframework.org/schema/task/spring-task.xsd  
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+	<task:annotation-driven/>  
+    <context:annotation-config/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+    <context:component-scan base-package="com.eeduspace.uuims.oauth.*">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--<context:property-placeholder location="classpath*:/conf/**/*.properties" />-->
+    <context:property-placeholder location="file:/etc/eeduspace/conf/uuims-oauth-ws.properties"/>
+
+    <bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
+    </bean>
+    <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+        <!--<property name="dropRootElement" value="true"/>
+        <property name="dropCollectionWrapperElement" value="true"/>
+        <property name="serializeAsArray" value="true"/>
+        <property name="supportUnwrapped" value="true"/>-->
+    </bean>
+
+    <bean id="initAuthService" class="com.eeduspace.uuims.oauth.service.InitAuthService"> 
+    </bean>
+
+</beans>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:annotation-config/>
+<!--     <context:property-placeholder location="file:/etc/eeduspace/conf/uuims-oauth-ws.properties"/>
+ -->
+    <!--<context:property-placeholder location="classpath*:/conf/**/*.properties" />-->
+	
+
+    <context:component-scan base-package="com.eeduspace.uuims.oauth.*">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+
+    <aop:aspectj-autoproxy proxy-target-class="true">
+        <aop:include name="controllerAspect" />
+        <aop:include name="consoleValidate" />
+    </aop:aspectj-autoproxy>
+    <bean id="controllerAspect"  class="com.eeduspace.uuims.oauth.aop.LogAop"/>
+
+	<bean id="propertyConfig"
+		class="com.eeduspace.uuims.comm.util.PropertyPlaceholderConfigurerExt">
+		<property name="locations">
+			<list>
+				<value>file:/etc/eeduspace/conf/uuims-oauth-ws.properties</value>
+			</list>
+		</property>
+	</bean> 
+   <!-- spring3使用@ResponseBody 输出乱码，-->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <constructor-arg>
+                        <bean id="defaultCharset" class="java.nio.charset.Charset" factory-method="forName">
+                            <constructor-arg value="UTF-8"/>
+                        </bean>
+                    </constructor-arg>
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <bean class="org.springframework.http.MediaType">
+                                <constructor-arg index="0" value="text" />
+                                <constructor-arg index="1" value="plain" />
+                                <constructor-arg index="2" value="UTF-8" />
+                            </bean>
+                            <bean class="org.springframework.http.MediaType">
+                                <constructor-arg index="0" value="application"/>
+                                <constructor-arg index="1" value="json"/>
+                                <constructor-arg index="2" value="UTF-8"/>
+                            </bean>
+                        </list>
+
+                    </property>
+                </bean>
+
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+</beans>

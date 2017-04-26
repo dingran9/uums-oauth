@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/data/jpa
+       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <jpa:repositories base-package="com.eeduspace.uuims.oauth"
+                      query-lookup-strategy="create-if-not-found"
+                      repository-impl-postfix="Impl"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"></bean>
+        </property>
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- 配置 Annotation 驱动，定义事务-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${dataSource.driverClassName}"/>
+        <property name="url" value="${dataSource.url}?createDatabaseIfNotExist=true"/>
+        <property name="username" value="${dataSource.username}"/>
+        <property name="password" value="${dataSource.password}"/>
+        <!--initialSize: 初始化连接-->
+        <property name="initialSize" value="1"/>
+        <!--maxActive: 最大连接数量-->
+        <property name="maxActive" value="45"/>
+        <!--maxIdle: 最大空闲连接-->
+        <property name="maxIdle" value="1"/>
+        <!--minIdle: 最小空闲连接-->
+        <property name="minIdle" value="1"/>
+        <!--maxWait: 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒-->
+        <property name="maxWait" value="3000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <!--removeAbandoned: 是否自动回收超时连接-->
+        <property name="removeAbandoned" value="true"/>
+        <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->
+        <property name="removeAbandonedTimeout" value="180"/>
+        <property name="logAbandoned" value="true"/>
+        <!-- 以下两项配置是为防止MySql连接默认8小时失效而导致程序报错而设置的 begin -->
+        <!-- 运行判断连接超时任务的时间间隔，单位为毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="3600000"/>
+        <!-- 连接的超时时间 -->
+        <property name="minEvictableIdleTimeMillis" value="3600000"/>
+
+        <property name="validationQuery" value="select 1 from dual"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+
+        <!-- end -->
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="false"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            </bean>
+        </property>
+        <!--        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.max_fetch_depth">3</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                &lt;!&ndash;强制Hibernate以更人性化的格式将数据存入二级缓存&ndash;&gt;
+                <prop key="hibernate.cache.use_structured_entries">true</prop>
+                &lt;!&ndash;允许查询缓存, 个别查询仍然需要被设置为可缓存的&ndash;&gt;
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                &lt;!&ndash;<prop key="hibernate.cache.provider_class">
+                    com.googlecode.hibernate.memcached.MemcachedCacheProvider
+                </prop>&ndash;&gt;
+                &lt;!&ndash;自定义ConnectionProvider的类名, 此类用来向Hibernate提供JDBC连接. 取值 classname.of.ConnectionProvider&ndash;&gt;
+                <prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
+                &lt;!&ndash;<prop key="hibernate.memcached.servers">&ndash;&gt;
+                &lt;!&ndash;10.1.19.132:33001 10.1.19.132:33002 10.1.19.132:33003&ndash;&gt;
+                &lt;!&ndash;</prop>&ndash;&gt;
+                &lt;!&ndash;一个TransactionFactory的类名, 用于Hibernate Transaction API (默认为JDBCTransactionFactory). 取值 classname.of.TransactionFactory&ndash;&gt;
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+                &lt;!&ndash;<prop key="javax.persistence.sharedCache.mode">ENABLE_SELECTIVE</prop>&ndash;&gt;
+                &lt;!&ndash;如果开启, Hibernate将收集有助于性能调节的统计数据&ndash;&gt;
+                <prop key="hibernate.generate_statistics">true</prop>
+                &lt;!&ndash;缓存失效时间&ndash;&gt;
+                <prop key="hibernate.memcached.cacheTimeSeconds">180</prop>
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">classpath:conf/ehcache.xml</prop>
+            </props>
+        </property>-->
+        <property name="packagesToScan" value="com.eeduspace.uuims.oauth.persist.po"/>
+    </bean>
+
+
+</beans>

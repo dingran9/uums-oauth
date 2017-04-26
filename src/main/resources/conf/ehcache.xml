@@ -1,0 +1,40 @@
+<ehcache>
+
+    <diskStore path="java.io.tmpdir"/>
+    <!--
+    属性说明：
+    diskStore ：指定数据在磁盘中的存储位置。
+    defaultCache ：当借助 CacheManager.add("demoCache") 创建 Cache 时， EhCache 便会采用<defalutCache/>指定的的管理策略
+    以下属性是必须的：
+    maxElementsInMemory - 在内存中缓存的 element 的最大数目
+    maxElementsOnDisk - 在磁盘上缓存的 element 的最大数目
+    eternal - 设定缓存的 elements 是否永远不过期。如果为 true ，则缓存的数据始终有效，如果为 false 那么还要根据 timeToIdleSeconds ， timeToLiveSeconds 判断
+    overflowToDisk - 设定当内存缓存溢出的时候是否将过期的 element 缓存到磁盘上
+    以下属性是可选的：
+    timeToIdleSeconds - 当缓存在 EhCache 中的数据前后两次访问的时间超过 timeToIdleSeconds 的属性取值时，这些数据便会删除 .
+    timeToLiveSeconds - 缓存 element 的有效生命期
+    diskPersistent - 在 VM 重启的时候是否启用磁盘保存 EhCache 中的数据，默认是 false 。
+    diskExpiryThreadIntervalSeconds - 磁盘缓存的清理线程运行间隔，默认是 120 秒。每个 120s ，相应的线程会进行一次 EhCache 中数据的清理工作
+    memoryStoreEvictionPolicy - 当内存缓存达到最大，有新的 element 加入的时候，   移除缓存中 element 的策略。默认是 LRU （最近最少使用），可选的有 LFU （最不常使用）和 FIFO （先进先出）
+        -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            maxElementsOnDisk = "15000"
+            eternal="false"
+            timeToIdleSeconds="1800"
+            timeToLiveSeconds="3600"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+<!--    <cache name="system_dictionary"
+           maxElementsInMemory="1500"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false"
+           diskExpiryThreadIntervalSeconds="180"
+            />-->
+
+</ehcache>

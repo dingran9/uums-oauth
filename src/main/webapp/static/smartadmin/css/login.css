@@ -1,0 +1,95 @@
+.cniaas{
+    font-family: "Microsoft YaHei";
+}
+
+#login.cniaas #header{
+    margin-bottom: 0 ;
+    border-bottom-color: #fff !important;
+    background-color: #fff !important;
+}
+#login{
+    overflow-x: hidden;
+}
+
+@media (min-width: 640px){
+    .not-mobile-pull-right{
+        float: right;
+    }
+}
+#login.cniaas .nav > li >a:hover{
+    background-color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+#login.cniaas .nav > li > a{
+    color:#404040;
+}
+
+#login .smart-form{
+    font-family: "黑体";
+}
+
+#login .well.no-padding,
+#login .well.no-padding header,
+#login .well.no-padding fieldset{
+    background: rgba(0,0,0,0.3);
+    border:rgba(0,0,0,0.3);
+}
+#login #main,
+.transparent0,
+#login .well.no-padding,
+#login .transparent0 .well.no-padding header,
+#login .transparent0 .well.no-padding fieldset{
+    background: rgba(0,0,0,0);
+    border:rgba(0,0,0,0);
+}
+
+#login .well{
+    margin-top: 30px;
+    margin-bottom: 80px;
+}
+.ezcloud-red{
+    color: #d33;
+}
+
+#login .well .smart-form section{
+    margin-bottom: 20px;
+}
+#login .smart-form header div{
+    color: #6D6D6D;
+}
+#login .smart-form header{
+    color:#fff;
+    padding-top: 35px;
+    border-bottom:0;
+    padding-bottom: 0;
+    font-size: 32px;
+}
+
+#login .smart-form .icon-append, .smart-form .icon-prepend{
+    top:15px;
+    font-size: 16px;
+    color:#444;
+    border-right: 0;
+}
+
+#login .smart-form .input input{
+    height: 50px;
+    font-size: 14px;
+    border-radius: 7px;
+}
+
+#login .smart-form .state-error+em{
+    font-size: 14px;
+    color: #f00;
+}
+
+#login .smart-form .input input[type="button"]{
+    font-size: 17px;
+    font-family: "黑体";
+    background-color: #3276b1;
+    color:#fff;
+}
+.smart-form .input input{
+    padding-left: 27px !important;
+}
